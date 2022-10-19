@@ -18,15 +18,11 @@ Cada tutorial pressupõe que os exercícios são realizados numa interface de li
 um sistema Unix/Linux ou equivalente. Assume também que os alunos já resolveram os tutoriais
 anteriores._
 
-#
-
 ## Requisitos
 
 - Sistema operativo Linux 20.04 LTS (se não o tiverem disponível no vosso computador pessoal, podem utilizar os computadores do laboratório);
 - **gdb** instalado (se não o tiverem disponível no vosso computador pessoal, podem utilizar os computadores do laboratório);
 - Arquivo **bst.zip** utilizado no laboratório da aula passada - _Guião 1: Ferramentas de desenvolvimento_ - (https://github.com/tecnico-so/lab_ferramentas) ;
-
-#
 
 ## 1. GNU Debugger (gdb)
 
@@ -124,8 +120,6 @@ opção -g. Pode verificar nas **CFLAGS** da **Makefile** que isto já está a c
 9. Com esta informação, já detetou o _bug_? Então saia do **gdb** (use o comando `quit` ou `q`) e corrija
    o _bug_ no ficheiro **test.c**.
 
-#
-
 ## 2. Breakpoints (gdb)
 
 No exemplo anterior, analisou o estado de um programa no momento em que este falhou (com
@@ -193,8 +187,6 @@ nos passos anteriores.
      Também não pode observar variáveis declaradas num contexto diferente daquele em que
      se encontra._
 
-#
-
 ## 3. Sanitizadores de código (gdb)
 
 O gcc permite que o programa a compilar seja instrumentado com rotinas que verificam, em tempo de
@@ -217,8 +209,6 @@ https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html
 - Compile o programa (provavelmente terá de fazer `make clean`) e experimente de novo correr o
   programa. Se adicionou o sanitizador certo, então o seu programa será interrompido assim que o
   sanitizador deteta o bug e verá uma mensagem de erro que o ajudará a corrigir o _bug_.
-
-#
 
 ## Agradecimentos
 
