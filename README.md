@@ -2,6 +2,18 @@
 
 ![IST](img/IST_DEI.png)
 
+<span style="color: red">
+
+## Objectivos
+
+No final deste guião, deverá ser capaz de:
+
+- Compreender a utilização básica do gdb na identificação e análise dos erros do programa;
+- Utilizar o mecanismo de breakpoints do gdb para analisar erros do programa;
+- Utilizar sanitizadores para analisar comportamentos incorretos do programa em tempo de execução;
+
+</span>
+
 _Nota: Os tutoriais práticos de SO consistem num conjunto de exercícios práticos que permitem aos alunos
 familiarizarem-se com um determinado tema que será necessário para resolver os projetos da disciplina.
 Os tutoriais podem ser resolvidos individualmente ou em grupo. A sua resolução é recomendada mas não
@@ -12,19 +24,43 @@ anteriores._
 
 #
 
+<span style="color: red">
+
+## Requisitos
+
+- Sistema operativo Linux 22.04 LTS (se não o tiverem disponível no vosso computador pessoal, podem utilizar os computadores do laboratório);
+- **gdb** instalado (se não o tiverem disponível no vosso computador pessoal, podem utilizar os computadores do laboratório);
+- Arquivo **bst.zip** utilizado no laboratório da aula passada - _Guião 1: Ferramentas de desenvolvimento_ - (https://github.com/tecnico-so/lab_ferramentas) ;
+
+</span>
+
+#
+
 ## 1. GNU Debugger (gdb)
 
-O gdb permite analisar o que está a acontecer dentro de um programa enquanto este está em execução
+O **gdb** permite analisar o que está a acontecer dentro de um programa enquanto este está em execução
 ou o estado de um programa antes de este terminar abruptamente. A documentação completa da
 ferramenta de depuração **gdb** pode ser consultada em: http://www.gnu.org/software/gdb/documentation.
 
-Para demonstrar as capacidades do **gdb** será usado o código distribuído na aula anterior. Crie um
-diretório no seu computador e descarregue o arquivo **bst.zip** (_binary search tree_) que está disponível
-na página da disciplina (no fénix), na secção “Laboratórios”, e extraia os ficheiros lá existentes.
+Para demonstrar as capacidades do **gdb** será usado o código distribuído na aula anterior.
 
-1. Adicione a seguinte função no início do ficheiro **test.c**.
+<span style="color: red">
+
+Crie um
+diretório no seu computador e descarregue o arquivo **bst.zip** (_binary search tree_) que está disponível
+no repositório da aula passada (https://github.com/tecnico-so/lab_ferramentas).
+
+1. Extraia os ficheiros existentes no arquivo **bst.zip**.
+
+   ```sh
+   unzip bst.zip
+   ```
+
+</span>
+
+2. Adicione a seguinte função no início do ficheiro **test.c**.
    ```c
-   void list_tree(node\* p)
+   void list_tree(node* p)
    {
    if (p->left)
    list_tree(p->left);
@@ -33,24 +69,36 @@ na página da disciplina (no fénix), na secção “Laboratórios”, e extraia
    list_tree(p->right);
    }
    ```
-2. Modifique a função _main_ para oferecer o novo comando l que irá listar a árvore recorrendo à
-   nova função _list_tree_.
-3. Gere o programa test recorrendo à _makefile_ fornecida.
+
+<span style="color: red">
+
+3. Modifique a função _main_ para oferecer o novo comando l que irá listar a árvore recorrendo à nova função _list_tree_.
+
+   ```c
+   else if ( c == 'l' ) {
+            list_tree(root);
+   }
+   ```
+
+</span>
+
+4. Gere o programa test recorrendo à _makefile_ fornecida.
    ```sh
    make
    ```
-4. Execute o programa **test** e, no estado inicial (árvore vazia), introduza o novo comando. O que
+5. Execute o programa **test** e, no estado inicial (árvore vazia), introduza o novo comando. O que
    acontece?
    ```sh
    ./test
-   l
+   > l
    ```
 
 O facto do programa ter falhado com _segmentation fault_ foi uma surpresa? Quando este tipo de erros
 acontece, nem sempre é óbvio identificar a causa (ou seja, o _bug_). Nestes casos, o **gdb** pode ser uma
 ferramenta muito útil. As seguintes alíneas mostram como.
+
 _Nota: Para usar o gdb nas alíneas seguintes, é necessário que o seu programa seja compilado com a
-opção -g. Verifique as **CFLAGS** na **Makefile**._
+opção -g. Pode verificar nas **CFLAGS** da **Makefile** que isto já está a contecer quando executa o comando **make**._
 
 5. Execute de novo o programa **test**, mas agora sob o controlo do **gdb**.
 
@@ -59,8 +107,8 @@ opção -g. Verifique as **CFLAGS** na **Makefile**._
    ```
 
 6. Dentro do **gdb**, inicie a execução do programa com o comando **run**, ou simplesmente **r**.
-   Nota: caso quisesse passar argumentos de linha de comando ao programa, poderia especificá-los
-   como argumentos do comando **run**.
+
+   _Nota: caso quisesse passar argumentos de linha de comando ao programa, poderia especificá-los como argumentos do comando **run**._
 
    ```sh
    (gdb) r
@@ -79,7 +127,7 @@ opção -g. Verifique as **CFLAGS** na **Makefile**._
 8. Neste momento, é como se a falha estivesse congelada, o que permite ao programador analisar o
    estado da execução do programa nesse exato momento para entender o que causou a falha.
    Para saber qual o caminho percorrido pelo programa até chegar a esse ponto, use o comando
-   **backtrace** (abreviado bt), o qual irá mostrar informação semelhante à seguinte.
+   **backtrace** (abreviado **bt**), o qual irá mostrar informação semelhante à seguinte.
 
    ```sh
    (gdb) bt
@@ -91,7 +139,8 @@ opção -g. Verifique as **CFLAGS** na **Makefile**._
    O primeiro número em cada linha indica o nível em que essa função está, começando pela
    função onde o programa terminou abruptamente (neste caso, _list_tree_).
    Observe como o **gdb** mostra os argumentos passados às funções ao longo da pilha (neste caso,
-   apenas o argumento **p**, sendo indicado o seu valor).
+   apenas o argumento **p**, sendo indicado o seu valor - **0x0**).
+
    _Nota: É frequente serem mostradas funções que são de sistema (embora não seja este o caso).
    Quando isso se verifica, obviamente, o que interessa é a última função que correu do nosso
    programa, pois será aí que está o erro._
@@ -101,12 +150,17 @@ opção -g. Verifique as **CFLAGS** na **Makefile**._
 
 #
 
+<span style="color: red">
+
+## 2. Breakpoints (gdb)
+
+</span>
+
 No exemplo anterior, analisou o estado de um programa no momento em que este falhou (com
 _segmentation fault_). Outra forma útil de entender o comportamento do programa é usando _breakpoints_.
 Por exemplo, quando se acrescenta uma nova função a um programa já existente, é usual usar-se
 _breakpoints_ para acompanhar, passo a passo, a forma como esse novo código se comporta.
-De seguida ilustramos usando a nova função **list_tree**, assumindo que já corrigiu o _bug_ que detetou
-nos passos anteriores.
+De seguida ilustramos usando a nova função **list_tree**, assumindo que já corrigiu o _bug_ que detetou nos passos anteriores.
 
 1. De novo, carregue o programa test no gdb:
 
@@ -127,7 +181,7 @@ nos passos anteriores.
    (gdb) info b
    ```
 
-   _Notar que um breakpoint pode ser disabled, enabled ou apagado usando respectivamente os
+   _Nota: Um breakpoint pode ser disabled, enabled ou apagado usando respectivamente os
    comandos **disable n**, **enable n** e **delete n**, em que **n** representa o número do
    breakpoint indicado pelo comando **info b**._
 
@@ -155,12 +209,14 @@ nos passos anteriores.
 
 7. Acompanhe, passo a passo, a execução da função à medida que a árvore é recursivamente listada,
    usando as seguintes dicas:
+
    - Pode avançar pelo código, linha a linha, utilizando o comando **next** (abreviado **n**).
    - Sempre que a execução chega a uma linha em que é chamada uma função (por exemplo,
      quando **list_tree** é chamada recursivamente para uma das sub-árvores), pode decidir
      entrar dentro dessa chamada usando o comando **step** (abreviado **s**) em vez do **next**.
    - Em cada momento, pode pedir para ler o valor de qualquer variável que exista no
      contexto atual usando o comando **print** _nome da variável_ (abreviado **p**).
+
      _Nota: não pode observar o valor de variáveis que ainda não foram definidas, tendo de
      esperar até estar na linha seguinte à da definição para poder inspecionar o seu valor.
      Também não pode observar variáveis declaradas num contexto diferente daquele em que
@@ -168,7 +224,11 @@ nos passos anteriores.
 
 #
 
-## 2. Sanitizadores de código
+<span style="color: red">
+
+## 3. Sanitizadores de código (gdb)
+
+</span>
 
 O gcc permite que o programa a compilar seja instrumentado com rotinas que verificam, em tempo de
 execução, se determinados comportamentos incorretos ocorrem. Estas opções de instrumentação
@@ -186,10 +246,12 @@ https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html
 - Para usar cada sanitizador, basta usar a opção **-fsanitize** do **gcc** aquando da compilação
   do seu programa. Veja no link acima como usar esta opção para ativar cada tipo de sanitizador.
 - Experimente agora voltar ao programa que compôs na alínea 1.1, que tinha um _bug_. Edite a
-  _Makefile_ para, nas CFLAGS, incluir um ou mais sanitizadores de código à sua escolha.
+  _Makefile_ para, nas **CFLAGS**, incluir um ou mais sanitizadores de código à sua escolha.
 - Compile o programa (provavelmente terá de fazer _make clean_) e experimente de novo correr o
   programa. Se adicionou o sanitizador certo, então o seu programa será interrompido assim que o
   sanitizador deteta o bug e verá uma mensagem de erro que o ajudará a corrigir o _bug_.
+
+#
 
 ## Agradecimentos
 
