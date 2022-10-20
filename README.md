@@ -180,12 +180,14 @@ nos passos anteriores.
    - Sempre que a execução chega a uma linha em que é chamada uma função (por exemplo,
      quando `list_tree` é chamada recursivamente para uma das sub-árvores), pode decidir
      entrar dentro dessa chamada usando o comando `step` (abreviado `s` em vez do `next`.
-   - Em cada momento, pode pedir para ler o valor de qualquer variável que exista no
-     contexto atual usando o comando `print` _nome da variável_ (abreviado `p`).
-     _Nota: não pode observar o valor de variáveis que ainda não foram definidas, tendo de
-     esperar até estar na linha seguinte à da definição para poder inspecionar o seu valor.
-     Também não pode observar variáveis declaradas num contexto diferente daquele em que
-     se encontra._
+   - Em cada momento, pode pedir para avaliar qualquer expressão (p.ex. valor de variáveis) usando o que existe no
+     contexto atual usando o comando `print <expressão>` (abreviado `p`).
+     _Nota: não pode observar variáveis que ainda não foram definidas, tendo de
+     esperar até estar na linha seguinte à da definição para poder inspecioná-las._
+   - Pode mudar de contexto com o comando `frame <nº de frame>` (abreviado `f`), em que o número do *frame* é o primeiro número mostrado pelo comando `backtrace` antes de cada contexto. Isto é útil para observar variáveis definidas noutros contextos.
+   - Caso se tenha esquecido de definir breakpoints, pode pausar a execução do programa com `Ctrl-C`. Esta combinação normalmente termina o programa em execução, mas dentro do **gdb** é interpretada como pausa.
+
+A [documentação oficial do GDB](https://sourceware.org/gdb/current/onlinedocs/gdb/) é extensa, mas existem *cheat sheets*, que são [referências dos comandos mais habituais no GDB](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf).
 
 ## 3. Sanitizadores de código (gdb)
 
