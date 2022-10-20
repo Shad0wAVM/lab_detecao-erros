@@ -80,8 +80,8 @@ opção -g. Pode verificar nas **CFLAGS** da **Makefile** que isto já está a c
    ```
 
 6. Dentro do **gdb**, inicie a execução do programa com o comando `run`, ou simplesmente `r`.
-   Nota: caso quisesse passar argumentos de linha de comando ao programa, poderia especificá-los
-   como argumentos do comando `run`.
+   _Nota: caso quisesse passar argumentos de linha de comando ao programa, poderia especificá-los
+   como argumentos do comando `run`._
 
    ```sh
    (gdb) r
@@ -194,21 +194,25 @@ A [documentação oficial do GDB](https://sourceware.org/gdb/current/onlinedocs/
 O gcc permite que o programa a compilar seja instrumentado com rotinas que verificam, em tempo de
 execução, se determinados comportamentos incorretos ocorrem. Estas opções de instrumentação
 chamam-se sanitizadores de código (_code sanitizers_).
-Existem diferentes tipos de sanitizadores, cada um focado em detetar diferentes classes de erros. A lista
-completa pode ser encontrada no link seguinte. Note que nem todos os sanitizadores podem ser
-combinados num mesmo programa compilado.
-https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html
+Existem diferentes tipos de sanitizadores ([lista de sanitizadores do GCC](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)), cada um focado em detetar diferentes classes de erros.
 
-- Entre outros, os seguintes sanitizadores pode ser especialmente úteis para os programas C que
+Note que:
+- Nem todos os sanitizadores podem ser combinados num mesmo programa compilado.
+- O programa tem de ser **todo** compilado com o mesmo conjunto de sanitizadores.
+
+Entre outros, os seguintes sanitizadores pode ser especialmente úteis para os programas C que
   desenvolveremos em SO: _AddressSanitizer_, _UndefinedBehaviorSanitizer_, _ThreadSanitizer_ (este
   apenas quando, mais tarde, aprendermos a fazer programas concorrentes).
   Que tipo de erros deteta cada um destes sanitizadores? Consulte na documentação do **gcc** (link
   acima).
-- Para usar cada sanitizador, basta usar a opção `-fsanitize` do **gcc** aquando da compilação
+
+1. Para usar cada sanitizador, basta usar a opção `-fsanitize` do **gcc** aquando da compilação
   do seu programa. Veja no link acima como usar esta opção para ativar cada tipo de sanitizador.
-- Experimente agora voltar ao programa que compôs na alínea 1.1, que tinha um _bug_. Edite a
+
+2. Experimente agora voltar ao programa que compôs na alínea 1.1, que tinha um _bug_. Edite a
   _Makefile_ para, nas `CFLAGS`, incluir um ou mais sanitizadores de código à sua escolha.
-- Compile o programa (provavelmente terá de fazer `make clean`) e experimente de novo correr o
+
+3. Compile o programa (provavelmente terá de fazer `make clean`) e experimente de novo correr o
   programa. Se adicionou o sanitizador certo, então o seu programa será interrompido assim que o
   sanitizador deteta o bug e verá uma mensagem de erro que o ajudará a corrigir o _bug_.
 
