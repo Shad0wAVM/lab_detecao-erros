@@ -189,7 +189,7 @@ nos passos anteriores.
 
 A [documentação oficial do GDB](https://sourceware.org/gdb/current/onlinedocs/gdb/) é extensa, mas existem *cheat sheets*, que são [referências dos comandos mais habituais no GDB](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf).
 
-## 3. Sanitizadores de código (gdb)
+## 3. Sanitizadores de código (gcc)
 
 O gcc permite que o programa a compilar seja instrumentado com rotinas que verificam, em tempo de
 execução, se determinados comportamentos incorretos ocorrem. Estas opções de instrumentação
