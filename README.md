@@ -216,6 +216,8 @@ Entre outros, os seguintes sanitizadores pode ser especialmente úteis para os p
   programa. Se adicionou o sanitizador certo, então o seu programa será interrompido assim que o
   sanitizador deteta o bug e verá uma mensagem de erro que o ajudará a corrigir o _bug_.
 
+_Nota: Outros compiladores como o `clang` também têm os seus sanitizadores. Atenção que as operações variam ligeiramente entre compiladores._
+
 ## Agradecimentos
 
 - Equipa de docentes de Sistemas Operativos
