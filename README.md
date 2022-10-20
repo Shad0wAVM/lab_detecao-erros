@@ -22,7 +22,7 @@ anteriores._
 
 - Sistema operativo Linux 20.04 LTS (se não o tiverem disponível no vosso computador pessoal, podem utilizar os computadores do laboratório);
 - **gdb** instalado (se não o tiverem disponível no vosso computador pessoal, podem utilizar os computadores do laboratório);
-- Arquivo **bst.zip** utilizado no laboratório da aula passada - _Guião 1: Ferramentas de desenvolvimento_ - (https://github.com/tecnico-so/lab_ferramentas) ;
+- Pasta **src** utilizada no laboratório da aula passada - _Guião 1: Ferramentas de desenvolvimento_ - (https://github.com/tecnico-so/lab_ferramentas) ;
 
 ## 1. GNU Debugger (gdb)
 
@@ -32,16 +32,12 @@ ferramenta de depuração **gdb** pode ser consultada em: http://www.gnu.org/sof
 
 Para demonstrar as capacidades do **gdb** será usado o código distribuído na aula anterior.
 
-Crie um
-diretório no seu computador e descarregue o arquivo **bst.zip** (_binary search tree_) que está disponível
-no repositório da aula passada (https://github.com/tecnico-so/lab_ferramentas).
-
-1. Extraia os ficheiros existentes no arquivo **bst.zip**.
+1. Copie a pasta **src**.
 
    ```sh
-   unzip bst.zip
+   cp ~/path/to/src . -r
    ```
-
+   
 2. Adicione a seguinte função no início do ficheiro **test.c**.
    ```c
    void list_tree(node* p)
