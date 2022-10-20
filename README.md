@@ -37,10 +37,10 @@ Para demonstrar as capacidades do **gdb** será usado o código distribuído na 
    ```sh
    cp ~/path/to/src . -r
    ```
-   
+
 2. Adicione a seguinte função no início do ficheiro **test.c**.
    ```c
-   void list_tree(node* p)
+   void list_tree(node_t* p)
    {
       if (p->left)
          list_tree(p->left);
