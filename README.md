@@ -22,7 +22,6 @@ anteriores._
 
 - Sistema operativo Linux 20.04 LTS (se não o tiverem disponível no vosso computador pessoal, podem utilizar os computadores do laboratório);
 - **gdb** instalado (se não o tiverem disponível no vosso computador pessoal, podem utilizar os computadores do laboratório);
-- Pasta **src** utilizada no laboratório da aula passada - _Guião 1: Ferramentas de desenvolvimento_ - (https://github.com/tecnico-so/lab_ferramentas) ;
 
 ## 1. GNU Debugger (gdb)
 
@@ -30,15 +29,9 @@ O **gdb** permite analisar o que está a acontecer dentro de um programa enquant
 ou o estado de um programa antes de este terminar abruptamente. A documentação completa da
 ferramenta de depuração **gdb** pode ser consultada em: http://www.gnu.org/software/gdb/documentation.
 
-Para demonstrar as capacidades do **gdb** será usado o código distribuído na aula anterior.
+Para demonstrar as capacidades do **gdb** serão usados os ficheiros contidos na pasta **src** do repositório.
 
-1. Copie a pasta **src**.
-
-   ```sh
-   cp ~/path/to/src . -r
-   ```
-
-2. Adicione a seguinte função no início do ficheiro **test.c**.
+1. Adicione a seguinte função no início do ficheiro **test.c**.
    ```c
    void list_tree(node_t* p)
    {
@@ -49,13 +42,13 @@ Para demonstrar as capacidades do **gdb** será usado o código distribuído na 
          list_tree(p->right);
    }
    ```
-3. Modifique a função _main_ para oferecer o novo comando `l` que irá listar a árvore recorrendo à
+2. Modifique a função _main_ para oferecer o novo comando `l` que irá listar a árvore recorrendo à
    nova função `list_tree`.
-4. Gere o programa test recorrendo à _makefile_ fornecida.
+3. Gere o programa test recorrendo à _makefile_ fornecida.
    ```sh
    make
    ```
-5. Execute o programa **test** e, no estado inicial (árvore vazia), introduza o novo comando. O que
+4. Execute o programa **test** e, no estado inicial (árvore vazia), introduza o novo comando. O que
    acontece?
    ```sh
    ./test
@@ -180,10 +173,10 @@ nos passos anteriores.
      contexto atual usando o comando `print <expressão>` (abreviado `p`).
      _Nota: não pode observar variáveis que ainda não foram definidas, tendo de
      esperar até estar na linha seguinte à da definição para poder inspecioná-las._
-   - Pode mudar de contexto com o comando `frame <nº de frame>` (abreviado `f`), em que o número do *frame* é o primeiro número mostrado pelo comando `backtrace` antes de cada contexto. Isto é útil para observar variáveis definidas noutros contextos.
+   - Pode mudar de contexto com o comando `frame <nº de frame>` (abreviado `f`), em que o número do _frame_ é o primeiro número mostrado pelo comando `backtrace` antes de cada contexto. Isto é útil para observar variáveis definidas noutros contextos.
    - Caso se tenha esquecido de definir breakpoints, pode pausar a execução do programa com `Ctrl-C`. Esta combinação normalmente termina o programa em execução, mas dentro do **gdb** é interpretada como pausa.
 
-A [documentação oficial do GDB](https://sourceware.org/gdb/current/onlinedocs/gdb/) é extensa, mas existem *cheat sheets*, que são [referências dos comandos mais habituais no GDB](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf).
+A [documentação oficial do GDB](https://sourceware.org/gdb/current/onlinedocs/gdb/) é extensa, mas existem _cheat sheets_, que são [referências dos comandos mais habituais no GDB](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf).
 
 ## 3. Sanitizadores de código (gcc)
 
@@ -193,24 +186,25 @@ chamam-se sanitizadores de código (_code sanitizers_).
 Existem diferentes tipos de sanitizadores ([lista de sanitizadores do GCC](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)), cada um focado em detetar diferentes classes de erros.
 
 Note que:
+
 - Nem todos os sanitizadores podem ser combinados num mesmo programa compilado.
 - O programa tem de ser **todo** compilado com o mesmo conjunto de sanitizadores.
 
 Entre outros, os seguintes sanitizadores pode ser especialmente úteis para os programas C que
-  desenvolveremos em SO: _AddressSanitizer_, _UndefinedBehaviorSanitizer_, _ThreadSanitizer_ (este
-  apenas quando, mais tarde, aprendermos a fazer programas concorrentes).
-  Que tipo de erros deteta cada um destes sanitizadores? Consulte na documentação do **gcc** (link
-  acima).
+desenvolveremos em SO: _AddressSanitizer_, _UndefinedBehaviorSanitizer_, _ThreadSanitizer_ (este
+apenas quando, mais tarde, aprendermos a fazer programas concorrentes).
+Que tipo de erros deteta cada um destes sanitizadores? Consulte na documentação do **gcc** (link
+acima).
 
 1. Para usar cada sanitizador, basta usar a opção `-fsanitize` do **gcc** aquando da compilação
-  do seu programa. Veja no link acima como usar esta opção para ativar cada tipo de sanitizador.
+   do seu programa. Veja no link acima como usar esta opção para ativar cada tipo de sanitizador.
 
 2. Experimente agora voltar ao programa que compôs na alínea 1.1, que tinha um _bug_. Edite a
-  _Makefile_ para, nas `CFLAGS`, incluir um ou mais sanitizadores de código à sua escolha.
+   _Makefile_ para, nas `CFLAGS`, incluir um ou mais sanitizadores de código à sua escolha.
 
 3. Compile o programa (provavelmente terá de fazer `make clean`) e experimente de novo correr o
-  programa. Se adicionou o sanitizador certo, então o seu programa será interrompido assim que o
-  sanitizador deteta o bug e verá uma mensagem de erro que o ajudará a corrigir o _bug_.
+   programa. Se adicionou o sanitizador certo, então o seu programa será interrompido assim que o
+   sanitizador deteta o bug e verá uma mensagem de erro que o ajudará a corrigir o _bug_.
 
 _Nota: Outros compiladores como o `clang` também têm os seus sanitizadores. Atenção que as operações variam ligeiramente entre compiladores._
 
