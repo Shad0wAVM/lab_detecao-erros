@@ -31,7 +31,7 @@ ferramenta de depuração **gdb** pode ser consultada em: http://www.gnu.org/sof
 
 Para demonstrar as capacidades do **gdb** serão usados os ficheiros contidos na pasta **src** do repositório.
 
-1. Adicione a seguinte função no início do ficheiro **test.c**.
+1. Adicione a seguinte função no início do ficheiro [`test.c`](./src/test.c).
    ```c
    void list_tree(node_t* p)
    {
