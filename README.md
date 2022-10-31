@@ -59,7 +59,7 @@ O facto do programa ter falhado com _segmentation fault_ foi uma surpresa? Quand
 acontece, nem sempre é óbvio identificar a causa (ou seja, o _bug_). Nestes casos, o **gdb** pode ser uma
 ferramenta muito útil. As seguintes alíneas mostram como.
 
-_Nota: Para usar o gdb nas alíneas seguintes, é necessário que o seu programa seja compilado com a
+_Nota: Para usar o **gdb** nas alíneas seguintes, é necessário que o seu programa seja compilado com a
 opção -g. Pode verificar nas **CFLAGS** da **Makefile** que isto já está a contecer quando executa o comando **make**._
 
 5. Execute de novo o programa **test**, mas agora sob o controlo do **gdb**.
@@ -77,7 +77,7 @@ opção -g. Pode verificar nas **CFLAGS** da **Makefile** que isto já está a c
    ```
 
 7. Tal como antes, introduza o comando `l` para listar o conteúdo da árvore (vazia). Como esperado,
-   o programa irá de novo falhar com _segmentation fault_. No entanto, desta vez o gdb está a
+   o programa irá de novo falhar com _segmentation fault_. No entanto, desta vez o **gdb** está a
    controlar a execução e apresentará a seguinte mensagem:
 
    ```sh
@@ -118,7 +118,7 @@ _breakpoints_ para acompanhar, passo a passo, a forma como esse novo código se 
 De seguida ilustramos usando a nova função `list_tree`, assumindo que já corrigiu o _bug_ que detetou
 nos passos anteriores.
 
-1. De novo, carregue o programa test no gdb:
+1. De novo, carregue o programa test no **gdb**:
 
    ```sh
    gdb test
@@ -207,3 +207,21 @@ acima).
    sanitizador deteta o bug e verá uma mensagem de erro que o ajudará a corrigir o _bug_.
 
 _Nota: Outros compiladores como o `clang` também têm os seus sanitizadores. Atenção que as operações variam ligeiramente entre compiladores._
+
+## Ferramenta de Depuração Alternativa: lldb
+
+Existem várias ferramentas de depuração para além do **gcc**, dos quais destacamos o **lldb**, que é funcionalmente idêntico e
+mais fácil de obter em macOS (vem com as ferramentas de desenvolvimento).
+
+O ponto forte do **lldb** reside não em mais funcionalidade, mas sim na forma como é implementado.
+Seguindo a filosofia do projeto LLVM é modular, e partilha vários componentes (*parser*, avaliador de expressões, etc.)
+com o compilador **clang** do mesmo projeto, beneficiando de todo o investimento neles feito.
+
+Para além disto, foi desenhado com integração em mente,
+expondo toda a funcionalidade por uma *API* seja para ferramentas simples de análise de binários, ou para *IDE*s como o XCode.
+
+Na [documentação oficial do **lldb**](https://lldb.llvm.org/index.html),
+encontra-se uma [referência de correspondências entre comandos do **gdb** e **lldb**](https://lldb.llvm.org/use/map.html).
+As formas abreviadas dos comandos usados neste guio so quase todas iguais ao equivalente no **gdb**,
+mas as formas longas têm maior variação (p.ex. `break <nome função>` -> `breakpoint set --name <nome função>`,
+mas `b` funciona da mesma forma que no **gdb**).
