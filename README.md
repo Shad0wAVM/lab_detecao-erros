@@ -213,6 +213,8 @@ _Nota: Outros compiladores como o `clang` também têm os seus sanitizadores. At
 Existem várias ferramentas de depuração para além do **gcc**, dos quais destacamos o **lldb**, que é funcionalmente idêntico e
 mais fácil de obter em macOS (vem com as ferramentas de desenvolvimento).
 
+**É recomendada a utilização do **gdb** e não se garante qualquer apoio à utilização **lldb** no decurso da cadeira!**
+
 O ponto forte do **lldb** reside não em mais funcionalidade, mas sim na forma como é implementado.
 Seguindo a filosofia do projeto LLVM é modular, e partilha vários componentes (*parser*, avaliador de expressões, etc.)
 com o compilador **clang** do mesmo projeto, beneficiando de todo o investimento neles feito.
