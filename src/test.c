@@ -5,11 +5,13 @@
 
 void list_tree(node_t* p)
 {
-      if (p->left)
-         list_tree(p->left);
-      printf("%ld\n", p->key);
-      if (p->right)
-         list_tree(p->right);
+    if (p == NULL)
+        return;
+    if (p->left)
+        list_tree(p->left);
+    printf("%ld\n", p->key);
+    if (p->right)
+        list_tree(p->right);
 }
 
 int main(void) {
@@ -41,6 +43,8 @@ int main(void) {
             debug = 1 - debug;
         } else if (c == 'p') {
             print_tree(root);
+        } else if (c == 'l') {
+            list_tree(root);
         }
 
         if (c == '\n') {
