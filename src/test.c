@@ -3,6 +3,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+void list_tree(node_t* p)
+{
+      if (p->left)
+         list_tree(p->left);
+      printf("%ld\n", p->key);
+      if (p->right)
+         list_tree(p->right);
+}
+
 int main(void) {
     node_t *root = NULL;
     int debug = 0;
