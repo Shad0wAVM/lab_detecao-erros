@@ -190,11 +190,11 @@ Se adicionou o sanitizador certo, então o seu programa será interrompido assim
 *Nota: Outros compiladores como o `clang` também têm os seus sanitizadores.*
 *Atenção que estas operações variam ligeiramente entre diferentes compiladores.*
 
-## Ferramenta de Depuração Alternativa: lldb
+## Ferramenta de Depuração Alternativa: *lldb*
 
-Existem várias ferramentas de depuração para além do **gcc**, dos quais destacamos o **lldb**, que é funcionalmente idêntico e mais fácil de obter em macOS (vem incluindo com as ferramentas de desenvolvimento).
+Existem várias ferramentas de depuração para além do *gcc*, dos quais destacamos o *lldb* (*low-level debugger*), que é funcionalmente idêntico e mais fácil de obter em macOS (vem incluindo com as ferramentas de desenvolvimento).
 
-**É recomendada a utilização do **gdb** e não se dará apoio à utilização **lldb** no decurso da cadeira!**
+**É recomendada a utilização do *gdb* e não se dará apoio à utilização *lldb* no decurso da cadeira!**
 
 O ponto forte do *lldb* reside não em mais funcionalidade, mas sim na forma como é implementado.
 Seguindo a filosofia do projeto LLVM, é modular, e partilha vários componentes (*parser*, avaliador de expressões, etc.) com o compilador **clang** do mesmo projeto, beneficiando de todo o investimento neles feito.
